@@ -1,6 +1,7 @@
 const express = require("express");
 const vite = require("vite-express");
 const { Client, IntentsBitField } = require("discord.js")
+const cors = require("cors");
 require("dotenv").config()
 
 
@@ -11,8 +12,8 @@ const client = new Client({
     ],
 })
 
-const convert_discord_format_to_link = (userID, specialID) => {
-    return `https://cdn.discordapp.com/banners/${userID}/${specialID}.png?size=1024`
+const convert_discord_format_to_link = (userID, specialID, isBanner) => {
+    return `https://cdn.discordapp.com/${isBanner ? "banners" : "avatars"}/${userID}/${specialID}.png?size=1024`
 }
 
 class Server {
@@ -25,6 +26,7 @@ class Server {
     }
 
     #init = () => {
+        this.#app.use(cors())
         this.#app.get("/", (req, res) => {
             console.log("Welcome");
             res.sendStatus(200, "OK_/");
@@ -43,8 +45,8 @@ class Server {
         let member = await client.users.fetch(String(userID))
         user_stats.username = member.username;
         user_stats.globalName = member.globalName;
-        user_stats.avatarLink = convert_discord_format_to_link(userID, member.avatar);
-        user_stats.bannerLink = convert_discord_format_to_link(userID, member.banner);
+        user_stats.avatarLink = convert_discord_format_to_link(userID, member.avatar, false);
+        user_stats.bannerLink = convert_discord_format_to_link(userID, member.banner, true);
         user_stats.accentColor = member.accentColor;
         user_stats.isBot = member.bot;
 
@@ -54,9 +56,20 @@ class Server {
 
     #api = () => {
         this.#app.get("/api/dclookup", async(req, res) => {
-            const userID = req.query.id;
+            let userID;
+            try {
+                userID = req.query.id;
+            } catch (err) {
+                return;
+            }
             console.log(userID);
-            let stat_data = await this.#handle_discord(userID);
+            
+            let stat_data;
+            try {
+                stat_data = await this.#handle_discord(userID);
+            } catch (err) {
+                return;
+            }
             res.status(200).json(stat_data);
         })
     }
