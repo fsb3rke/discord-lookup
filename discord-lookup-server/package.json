@@ -11,6 +11,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "vite-express": "^0.14.0"
   }
