@@ -1,0 +1,21 @@
+{
+    "app": {
+        "tasks": [
+            {
+                "completed": false,
+                "date": "Thu Jan 25 01:49:41 2024\n",
+                "task": "server.js -> rewrite stat_data variable"
+            },
+            {
+                "completed": false,
+                "date": "Thu Jan 25 01:49:59 2024\n",
+                "task": "make beautiful front-end"
+            },
+            {
+                "completed": false,
+                "date": "Thu Jan 25 01:50:49 2024\n",
+                "task": "server.js -> directly return in a object without initialize user_stats object"
+            }
+        ]
+    }
+}
