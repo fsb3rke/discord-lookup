@@ -2,7 +2,7 @@
     "app": {
         "tasks": [
             {
-                "completed": false,
+                "completed": true,
                 "date": "Thu Jan 25 01:49:41 2024\n",
                 "task": "server.js -> rewrite stat_data variable"
             },

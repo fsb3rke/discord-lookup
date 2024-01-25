@@ -2,29 +2,37 @@
 
     let username: string;
     let globalName: string;
-    let avatarLink: string;
-    let bannerLink: string;
+    let avatarURL: string;
+    let bannerURL: string;
+    let hexAccentColor: string;
+    let createdAt: string;
+    let isBot: boolean;
 
     const showData = async () => {
         const inputDataValue: string = (<HTMLInputElement>document.getElementById("inp_id")).value;
         
+        if (inputDataValue.length >= 17 && inputDataValue.length <= 18) {
+            try {
+                console.log(`http://localhost:2117/api/dclookup?id=${inputDataValue}`);
+                
+                const response = await fetch(`http://localhost:2117/api/dclookup?id=${inputDataValue}`);
+                const data = await response.json()
+                console.log(data);
 
-        try {
-            console.log(`http://localhost:2117/api/dclookup?id=${inputDataValue}`);
-            
-            const response = await fetch(`http://localhost:2117/api/dclookup?id=${inputDataValue}`);
-            const data = await response.json()
-            console.log(data);
-
-            username = data["username"];
-            globalName = data["globalName"];
-            avatarLink = data["avatarLink"];
-            bannerLink = data["bannerLink"];
+                username = data["username"];
+                globalName = data["globalName"];
+                avatarURL = data["avatarURL"];
+                bannerURL = data["bannerURL"];
+                hexAccentColor = data["hexAccentColor"];
+                createdAt = data["createdAt"];
+                isBot = data["isBot"];
 
 
-        } catch (err) {
-            console.error("Fetch Error:", err);
+            } catch (err) {
+                console.error("Fetch Error:", err);
+            }
         }
+
         
     }
 
@@ -38,10 +46,13 @@
     <button id="btn_showData" on:click={() => showData()}>
         Show The Data
     </button>
-
-    <div>{username}</div>
-    <div>{globalName}</div>
-    <img src="{avatarLink}" alt="">
-    <img src="{bannerLink}" alt="">
+    <br>
+    <span>{username}</span><br>
+    <span>{globalName}</span><br>
+    <span style="background: {hexAccentColor}">{hexAccentColor}</span><br>
+    <span>{createdAt}</span><br>
+    <span>{isBot}</span><br>
+    <img src="{avatarURL}" alt="">
+    <img src="{bannerURL}" alt="">
 
 </div>
