@@ -53,7 +53,7 @@
     
     <div class="card-user-banner">
         {#if bannerURL != "invalid_body" || hexAccentColor != "invalid_body"}
-        <img src="{bannerURL}" style="border-radius: 10px 10px 0 0;" alt="banner">
+        <img src="{bannerURL}" style="border-radius: 10px 10px 0 0; max-width: 100%;" alt="banner">
         {/if}
     </div>
 
