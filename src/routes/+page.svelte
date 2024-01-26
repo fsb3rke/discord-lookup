@@ -5,3 +5,9 @@
 <div class="container">
     <Lookup />
 </div>
+
+<style>
+  * {
+    font-family: sans-serif;
+  }
+</style>
