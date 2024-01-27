@@ -1,12 +1,14 @@
 import os
+import sys
 
 PACKAGE_INSTALL_COMMAND: str = "npm install"
 LOOKUP_SERVER_DIRECTORY: str = "discord-lookup-server"
 ROOT_DIRECTORY: str = "discord-lookup"
 DOTENV_DISCORD_BOT_TOKEN_VARIABLE_NAME: str = "DISCORD_BOT_TOKEN"
+SPLITTER: str = '\\' if sys.platform.startswith("win32") else '/'
 
 def get_current_dir_name() -> str:
-    return os.getcwd().split('\\')[-1]
+    return os.getcwd().split(SPLITTER)[-1]
 
 def is_path_name_discord_lookup() -> bool:
     return get_current_dir_name() == ROOT_DIRECTORY
